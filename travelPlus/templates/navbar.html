@@ -1,0 +1,22 @@
+<div class="sticky top-0 bg-black z-[10]">
+    <div class="flex h-full items-center justify-between px-10">
+        <a href="{% url 'home' %}" class="py-2"><h1 class="text-4xl py-2 font-mono text-white">Travel Plus</h1></a>
+        <div class="flex-1 px-4 bg-gray-800 rounded-2xl mx-10">
+            <form action="{% url 'home' %}" method="get">
+                <input type="text" name="q" placeholder="Search" class="w-[90%] h-full px-4 py-2 text-white bg-transparent outline-none">
+                <button type="submit" class="rounded-xl text-white bg-blue-300 py-2 px-5">Search</button>
+            </form>
+        </div>
+        <div class="h-full flex gap-5">
+            {% if request.user.is_authenticated %}
+            <span class="text-2xl py-2 font-mono text-white">Hello, {{request.user}} </span>
+            <a href="{% url 'logout' %}" class="text-xl py-2 font-mono text-white">Logout</a>
+            {% else %}
+            <a href="{% url 'register' %}" class="text-xl py-2 font-mono text-white">Sign Up</a>
+            <a href="{% url 'login' %}" class="text-xl py-2 font-mono text-white">Login</a>
+            {% endif %}
+            
+        </div>
+    </div>
+    <hr>
+</div>

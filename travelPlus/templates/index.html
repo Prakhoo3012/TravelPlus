@@ -1,0 +1,69 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="flex py-5 relative">
+
+    <div class="flex-[0.2] h-screen border-r-2 border-white sticky top-20 overflow-y-auto bg-black">
+        <h1 class="text-white text-4xl text-center font-mono">Browse Topics</h1>
+        <hr>
+        <div class="px-5 py-5">
+            <h4 class="text-white text-2xl font-semibold font-mono">Top Picks</h4>
+            {% for package in packagess %}
+                <div class="ml-5">
+                    <a href="{% url 'home' %}?q={{package.package_name}}" class="text-lg text-white">{{package.package_name}}</a>
+                </div>
+            {% endfor %}
+            <hr class="my-5">
+            <h4 class="text-white text-2xl font-semibold font-mono">Filters</h4>
+            <h5 class="text-white text-xl font-semibold font-mono ml-2">Price</h5>
+            <a href="{% url 'home' %}" class="text-lg text-white ml-5">All</a>
+            {% for package in packagess %}
+                <div class="ml-5">
+                    <a href="{% url 'home' %}?q={{package.price}}" class="text-lg text-white">{{package.price}}</a>
+                </div>
+            {% endfor %}
+            <div class="flex justify-between items-center">
+                <h5 class="text-white text-xl font-semibold font-mono ml-2">Destination City</h5>
+                <small class="text-white text-base">{{destinations.count}}</small>
+            </div>
+            <a href="{% url 'home' %}" class="text-lg text-white ml-5">All</a>
+            {% for destination in destinations %}
+                <div class="ml-5">
+                    <a href="{% url 'home' %}?q={{destination.city_name}}" class="text-lg text-white">{{destination.city_name}}</a>
+                </div>
+            {% endfor %}
+            <div class="flex justify-between items-center">
+                <h5 class="text-white text-xl font-semibold font-mono ml-2">Destination Country</h5>
+                <small class="text-white text-base">{{countries.count}}</small>
+            </div>
+            <a href="{% url 'home' %}" class="text-lg text-white ml-5">All</a>
+            {% for country in countries %}
+                <div class="ml-5">
+                    <a href="{% url 'home' %}?q={{country.country_name}}" class="text-lg text-white">{{country.country_name}}</a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="flex-[0.6] border-r-2 border-white p-2">
+
+        {% for package in packages %}
+        <a href="{% url 'each_package' package.id %}">
+            <div class="border-2 border-violet-400 my-2 p-2">
+                <div class="flex justify-between mb-10">
+                    <p class="text-white">location: {{package.destination.city_name}}, {{package.destination.country.country_name}}</p>
+                    <p class="text-white">Available from: {{package.availability}}</p>
+                </div>
+                <h1 class="font-semibold text-white font-mono text-5xl">{{package.package_name}}</h1>
+                <p class="text-white">{{package.package_description}}</p>
+                <div class="mt-10 flex justify-between">
+                    <p class="font-semibold text-white font-mono text-4xl">Duration: {{package.duration}} Day</p>
+                    <p class="font-semibold text-white font-mono text-4xl">Total Cost: ${{package.price}}</p>
+                </div>
+            </div>
+
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
